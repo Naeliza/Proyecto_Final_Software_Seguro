@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Final_Software_Seguro.Models;
 
@@ -11,6 +12,13 @@ builder.Services.AddDbContext<TaskDbContext>((serviceProvider, options) =>
 
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+// Configurar la autenticación de usuario con cookies
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login"; // Ruta de inicio de sesión
+    });
 
 var app = builder.Build();
 
