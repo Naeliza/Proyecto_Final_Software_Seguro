@@ -13,18 +13,17 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-// Configurar la autenticación de usuario con cookies
+// Configurar la autenticación de usuario con 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login"; // Ruta de inicio de sesión
     });
 
-var app = builder.Build();
-
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
