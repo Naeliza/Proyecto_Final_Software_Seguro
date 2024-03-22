@@ -44,8 +44,8 @@ namespace Proyecto_Final_Software_Seguro.Controllers
                     // Iniciar sesión
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                    // Redirigir al usuario a la página de inicio
-                    return RedirectToAction("Index", "Home");
+                    // Redirigir al usuario a la página de tareas
+                    return RedirectToAction("Index", "Tasks");
                 }
                 else
                 {
