@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Proyecto_Final_Software_Seguro.Models;
-using System.Linq;
 
 namespace Proyecto_Final_Software_Seguro.Controllers
 {
     public class TasksController : Controller
     {
-        private readonly TaskDbContext _context;
+        private readonly AppDbContext _context;
 
-        public TasksController(TaskDbContext context)
+        public TasksController(AppDbContext context)
         {
             _context = context;
         }

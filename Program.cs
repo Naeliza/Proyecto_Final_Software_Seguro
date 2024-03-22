@@ -5,7 +5,7 @@ using Proyecto_Final_Software_Seguro.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configurar la conexión a la base de datos MySQL
-builder.Services.AddDbContext<TaskDbContext>((serviceProvider, options) =>
+builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     var connectionString = configuration.GetConnectionString("DefaultConnection");

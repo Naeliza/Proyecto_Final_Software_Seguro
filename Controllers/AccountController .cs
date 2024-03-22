@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Final_Software_Seguro.Models;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Proyecto_Final_Software_Seguro.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserDbContext _context;
+        private readonly AppDbContext _context;
 
-        public AccountController(UserDbContext context)
+        public AccountController(AppDbContext context)
         {
             _context = context;
         }
