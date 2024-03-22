@@ -1,13 +1,15 @@
-﻿<h1>Iniciar Sesión</h1>
+﻿@model Proyecto_Final_Software_Seguro.Models.LoginViewModel
+
+<h1>Iniciar Sesión</h1>
 
 <form asp-action="Login" method="post">
     <div>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" />
+        <label asp-for="Username">Usuario:</label>
+        <input asp-for="Username" />
     </div>
     <div>
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" />
+        <label asp-for="Password">Contraseña:</label>
+        <input asp-for="Password" type="password" />
     </div>
     <button type="submit">Iniciar Sesión</button>
 </form>
