@@ -1,0 +1,27 @@
+﻿@model List<Proyecto_Final_Software_Seguro.Models.TaskItem>
+
+<h1>Tareas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Completada</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Id</td>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td>@(task.IsCompleted ? "Sí" : "No")</td>
+            </tr>
+        }
+    </tbody>
+</table>
