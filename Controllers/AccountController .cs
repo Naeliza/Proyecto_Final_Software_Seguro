@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Final_Software_Seguro.Models;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace Proyecto_Final_Software_Seguro.Controllers
 {
@@ -27,10 +29,11 @@ namespace Proyecto_Final_Software_Seguro.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Buscar el usuario en la base de datos por nombre de usuario y contraseña
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Password == model.Password);
+                // Evitar Inyección SQL
+                // Se utiliza parámetros en la consulta para evitar la inyección SQL
+                var user = await _context.Users.FromSqlRaw("SELECT * FROM Users WHERE Username = {0}", model.Username).FirstOrDefaultAsync();
 
-                if (user != null)
+                if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 {
                     // Crear la identidad del usuario
                     var claims = new[]
