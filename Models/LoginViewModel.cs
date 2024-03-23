@@ -1,11 +1,16 @@
-﻿namespace Proyecto_Final_Software_Seguro.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+
+namespace Proyecto_Final_Software_Seguro.Models
 {
     public class LoginViewModel
     {
-        public int Id { get; set; }
+        [Required(ErrorMessage = "El nombre de usuario es requerido.")]
+        [Display(Name = "Nombre de Usuario")]
         public string Username { get; set; }
-        public string Password { get; set; }
-        public string PasswordHash { get; set; }
-    }
 
+        [Required(ErrorMessage = "La contraseña es requerida.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Contraseña")]
+        public string Password { get; set; }    }
 }
