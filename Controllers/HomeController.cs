@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization; // Importa el espacio de nombres necesario
 using Proyecto_Final_Software_Seguro.Models;
 using System.Diagnostics;
 
@@ -15,7 +16,17 @@ namespace Proyecto_Final_Software_Seguro.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // Verifica si el usuario está autenticado
+            if (User.Identity.IsAuthenticated)
+            {
+                // Si el usuario está autenticado, muestra la vista correspondiente
+                return View();
+            }
+            else
+            {
+                // Si el usuario no está autenticado, redirige a la página de inicio de sesión
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         public IActionResult Privacy()
