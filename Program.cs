@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Proyecto_Final_Software_Seguro.Filters;
 using Proyecto_Final_Software_Seguro.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = "/Account/Login"; // Ruta de inicio de sesión
     });
+
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(new HtmlEncodingFilter());
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

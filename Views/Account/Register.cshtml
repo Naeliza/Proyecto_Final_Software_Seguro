@@ -4,77 +4,93 @@
     ViewData["Title"] = "Register";
 }
 
-<style>
-    /* Estilos para el formulario de registro */
-    .register-form {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+        .register-form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    .form-label {
-        display: block;
-        margin-bottom: 5px;
-    }
+        h1 {
+            text-align: center;
+        }
 
-    .form-input {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-    }
+        .form-label {
+            display: block;
+            font-weight: bold;
+        }
 
-    .btn-primary {
-        background-color: #007bff;
-    }
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    .text-danger {
-        color: #dc3545;
-        font-size: 14px;
-    }
+            .btn:hover {
+                background-color: #0056b3;
+            }
 
-</style>
+        .text-danger {
+            color: red;
+        }
 
-<h1>Register</h1>
+    </style>
+</head>
+<body>
 
-<form asp-controller="Account" asp-action="Register" method="post" class="register-form">
-    <div class="form-group">
-        <label asp-for="Username" class="form-label">Username:</label>
-        <input asp-for="Username" class="form-input" />
-        <span asp-validation-for="Username" class="text-danger"></span>
+    <div class="register-form">
+        <h1>Register</h1>
+        <form asp-controller="Account" asp-action="Register" method="post">
+            <div class="form-group">
+                <label asp-for="Username" class="form-label">Username:</label>
+                <input asp-for="Username" class="form-input" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Password:</label>
+                <input asp-for="Password" type="password" class="form-input" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm Password:</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-input" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Password" class="form-label">Password:</label>
-        <input asp-for="Password" type="password" class="form-input" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="form-label">Confirm Password:</label>
-        <input asp-for="ConfirmPassword" type="password" class="form-input" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-</form>
+
+</body>
+</html>

@@ -6,6 +6,7 @@ namespace Proyecto_Final_Software_Seguro.Models
     {
         [Required(ErrorMessage = "El nombre de usuario es requerido.")]
         [Display(Name = "Nombre de Usuario")]
+        [EmailAddress]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "La contraseña es requerida.")]

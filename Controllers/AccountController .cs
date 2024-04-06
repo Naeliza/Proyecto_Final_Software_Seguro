@@ -29,47 +29,41 @@ namespace Proyecto_Final_Software_Seguro.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Evitar Inyección SQL
-                // Se utiliza parámetros en la consulta para evitar la inyección SQL
+                // Utilizar parámetros en la consulta para prevenir la inyección SQL
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
 
-                if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
-                {
-                    // La autenticación es exitosa
-                    // Crear la identidad del usuario
-                    var claims = new[]
-                    {
-                        new Claim(ClaimTypes.Name, user.Username),
-                    };
+                // Retardar la respuesta deliberadamente para evitar ataques de tiempo
+                await Task.Delay(2000);
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    // Iniciar sesión
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                    // Redirigir al usuario a la página de tareas
-                    return RedirectToAction("Index", "Tasks");
-                }
-                else
+                // Evitar la enumeración de usuarios
+                if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 {
                     // La autenticación falló
-                    // Agregar el mensaje de error al modelo para mostrarlo en la vista
-                    ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos");
+                    // Agregar un mensaje de error genérico para no revelar información sobre la existencia de usuarios
+                    ModelState.AddModelError(string.Empty, "Credenciales inválidas");
+                    return View(model);
                 }
+
+                // La autenticación es exitosa
+                // Crear la identidad del usuario
+                var claims = new[]
+                {
+            new Claim(ClaimTypes.Name, user.Username),
+        };
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Iniciar sesión
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                // Redirigir al usuario a la página de tareas
+                return RedirectToAction("Index", "Tasks");
             }
 
             // Si llegamos aquí, algo falló, volvemos a mostrar el formulario de inicio de sesión con los errores
             return View(model);
         }
 
-        public async Task<IActionResult> Logout()
-        {
-            // Cerrar sesión
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // Redirigir al usuario a la página de inicio
-            return RedirectToAction("Index", "Home");
-        }
         #endregion
 
         #region Controlador de registro
@@ -117,7 +111,6 @@ namespace Proyecto_Final_Software_Seguro.Controllers
                     // Manejar cualquier error que pueda ocurrir al guardar el usuario en la base de datos
                     ModelState.AddModelError(string.Empty, "Ocurrió un error al registrar el usuario.");
                     // Loguear el error para su posterior análisis
-                    // logger.LogError(ex, "Error al registrar usuario");
                     return View(model);
                 }
             }

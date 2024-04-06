@@ -14,7 +14,7 @@ namespace Proyecto_Final_Software_Seguro.Controllers
         }
 
         // GET: Tasks/Index
-        [Authorize] // Requiere autenticación para acceder a esta acción        
+       [Authorize] // Requiere autenticación para acceder a esta acción        
         public IActionResult Index()
         {
             var tasks = _context.Tasks.ToList();
